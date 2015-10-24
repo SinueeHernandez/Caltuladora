@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculator</title>
+	<meta charset="utf-8" />
+    <style>
+        table, th, td{
+            border:1px solid gray;
+        }
+        tfoot{
+            font-style:italic;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculator</h1>
+        <h2>A brief migration comparison</h2>
+
+    </header>
+    <h3>Assumptions</h3>
+    <p>
+        <ol>
+            <li>The company has the option to move to Office 365 or refresh the current hardware</li>
+            <li>The company will buy the E3 plan, which includes Exchange, SharePoint and Lync</li>
+            <li> We'll decrease the size of the IT team by 1 resource</li>
+            <li> Assuming 3 annual payments for perpetual licenses</li>
+        </ol>
+    </p>
+    <div>
+        <label>Hide non configurable parameters</label>
+        <input type="checkbox" id="HideNonConfigParams" />
+    </div>
+    <div id="Inputs">
+        <h3>Configurable Factors</h3>
+        <p>
+            <label>Number of Years</label>
+            <input type="text" id="NumberOfYears" />
+        </p>
+        <p>
+            <label>Number of Users</label>
+            <input type="text" id="NumberOfUsers" />
+        </p>
+        <p>
+            <label>Cost of E3 License</label>
+            <input type="text" id="CostE3License" />
+        </p>
+        <p>
+            <label>Number of IT Resources</label>
+            <input type="text" id="NumberOfITResources" />
+        </p>
+
+        <h3>Current Costs</h3>
+        <p>
+            <label>Cost per IT Resource</label>
+            <input type="text" id="CostPerITResource"/>
+        </p>
+        <p class="NonConfigurableParameter">
+            <label>Cost per mobile worker</label>
+            <input type="text" id="CostPerMobileWorker" />
+        </p>
+        <p class="NonConfigurableParameter">
+            <label>Cost per knowledge worker</label>
+            <input type="text" id="CostPerKnowledgeWorker" />
+        </p>
+
+        <h3>Implementation/Migration</h3>
+        <p>
+            <label>Professional Services</label>
+            <input type="text" id="ProfesionalServices" />
+        </p>
+        <p class="NonConfigurableParameter">
+            <label>Training</label>
+            <input type="text" id="Training"/>
+        </p>
+
+        <h3>Hardware</h3>
+        <p>
+            <label>Cost per server</label>
+            <input type="text" id="CostPerServer" />
+        </p>
+        <table id="ServerCosts">
+            <thead>
+                <tr>
+                    <th align="center"></th>
+                    <th align="center">Unit Price</th>
+                    <th align="center">Total Price</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td align="left">Total</td>
+                    <td align="center"><input type="text" id="SumOfServers" value="7"/></td>
+                    <td align="right"><input type="text" id="SumCostServers" value="49000"/></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td align="left">Exchange Servers</td>
+                    <td align="center"><input type="text" id="NumberOfExchangeServers" value="2"/></td>
+                    <td align="right"><input type="text" id="CostOfExchangeServers" value="14000"/></td>
+                </tr>
+                <tr>
+                    <td align="left">SharePoint Servers</td>
+                    <td align="center"><input type="text" id="NumberOfSharePointServers" value="3"/></td>
+                    <td align="right"><input type="text" id="CostOfSharePointServers" value="21000"/></td>
+                </tr>
+                <tr>
+                    <td align="left">Lync Servers</td>
+                    <td align="center"><input type="text" id="NumberOfLyncServers" value="2"/></td>
+                    <td align="right"><input type="text" id="CostOfLyncServers" value="14000"/></td>
+                </tr>
+            </tbody>
+           
+        </table>
+        
+        <h3>Support</h3>
+        <p class="NonConfigurableParameter">
+            <label>Number of resources</label>
+            <input type="text" id="NumberOfSupportResources" />
+        </p>
+
+        <h3>Third Party Software</h3>
+        <table id="ThirdPartySoftware">
+            <tbody>
+                <tr>
+                    <td align="left">Antivirus cost per year</td>
+                    <td align="center"><input type="text" id="Antivirus" /></td>
+                </tr>
+                <tr>
+                    <td align="left">Backup agents per year</td>
+                    <td align="center"><input type="text" id="Backup" /></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td align="left">Total</td>
+                    <td align="center"><input type="text" id="TotalThirdPartySoftware" /></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h3>Microsoft Licenses</h3>
+        <table id="MicrosoftLicenses">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Office Professional Plus</td>
+                    <td><input type="text" id="OfficeLinceCost" value="508.00" /></td>
+                    <td><input type="text" id="OfficeLinceCost" value="76,200.00" /></td>
+                </tr>
+                <tr>
+                    <td>Exchange Standard</td>
+                    <td><input type="text" id="OfficeLinceCost" value="708.00" /></td>
+                    <td><input type="text" id="OfficeLinceCost" value="1,416.00"/></td>
+                </tr>
+                <tr>
+                    <td>SharePoint Standard</td>
+                    <td><input type="text" id="OfficeLinceCost" value="4,926.00" /></td>
+                    <td><input type="text" id="OfficeLinceCost" value="14,778.00" /></td>
+                </tr>
+                <tr>
+                    <td>Lync Standard</td>
+                    <td><input type="text" id="OfficeLinceCost" value="708.00" /></td>
+                    <td><input type="text" id="OfficeLinceCost" value="1,416.00"/></td>
+                </tr>
+                <tr>
+                    <td>CALs</td>
+                    <td><input type="text" id="OfficeLinceCost" value="195.00" /></td>
+                    <td><input type="text" id="OfficeLinceCost" value="29,250.00"/></td> 
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td><input type="text" id="TotalMicrosoftLicenses" value="123060"/>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h3>Data Center</h3>
+        <table id="DataCenter">
+            <tbody>
+                <tr>
+                    <td>Cost Per Server/Year</td>
+                    <td><input type="text" id="DataCenterCostPerServerPerYear" value="500" /></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td><input type="text" id="TotalDataCenter" value="3500" /></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div id="Output">
+        <h2>Comparision Results</h2>
+        <table id="ComparisionTable">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th colspan="2">Year 1</th>
+                    <th colspan="2">Year 2</th>
+                    <th colspan="2">Year 3</th>
+                    <th colspan="2">Total</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>On-Premise</th>
+                    <th>Office 365</th>
+                    <th>On-Premise</th>
+                    <th>Office 365</th>
+                    <th>On-Premise</th>
+                    <th>Office 365</th>
+                    <th>On-Premise</th>
+                    <th>Office 365</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>IT Resources</td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                </tr>
+                <tr>
+                    <td>Hardware</td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                </tr>
+                <tr>
+                    <td>DataCenter</td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                </tr>
+                <tr>
+                    <td>Perpetual Licienses</td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                </tr>
+                <tr>
+                    <td>Office 365 Subscription</td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                </tr>
+                <tr>
+                    <td>Third Party Software</td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                    <td><input type="text" /> </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+</html>
