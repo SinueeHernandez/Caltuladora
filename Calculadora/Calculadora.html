@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html ng-app="Calculadora">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <script type="text/javascript" src="Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="Module.js"></script>
+    <script type="text/javascript" src="Calcuradora.js"></script>
+</head>
+<body>
+    <div ng-controller="Calc">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Identificador</th>
+                    <th>Lenguaje</th>
+                </tr>
+                <tr ng-repeat="proyecto in listaProyectos">
+
+                    <td>{{Calc.proyecto.nombre}}</td>
+                    <td>{{proyecto.lenguaje}}</td>
+                    <td><input type="button" ng-click="verDetalle(proyecto)" value="ver detalle"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="proyectoDetalle!=null">
+            <p>Nombre:{{Calc.proyectoDetalle.nombre}}</p>
+            <p>Lenguaje:{{proyectoDetalle.lenguaje}}</p>
+            <p>Tipo:{{proyectoDetalle.tipo}}</p>
+            <p>Horas:{{proyectoDetalle.horas}}</p>
+        </div>
+    </div>
+</body>
+</html>

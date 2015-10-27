@@ -1,9 +1,12 @@
 ﻿<!DOCTYPE html>
-<html id="ng-app" ng-app="certificationtracker" xmlns:ng="http://angularjs.org">
+<html id="ng-app" ng-app="Calculadora" xmlns:ng="http://angularjs.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Calculator</title>
 	<meta charset="utf-8" />
+    <script type="text/javascript" src="Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="Module.js"></script>
+    <script type="text/javascript" src="Calcuradora.js"></script>
     <style>
         table, th, td{
             border:1px solid gray;
@@ -11,198 +14,175 @@
         tfoot{
             font-style:italic;
         }
+        NonConfigurableParameterHided{
+            visibility:hidden;
+        }
+        NonConfigurableParameter{
+            visibility:visible;
+        }
     </style>
 </head>
-<body>
-    <header>
-        <h1>Calculator</h1>
-        <h2>A brief migration comparison</h2>
+<body ng-controller="Calc">
+    
+        <header>
+            <h1>Calculator</h1>
+            <h2>A brief migration comparison</h2>
 
-    </header>
-    <h3>Assumptions</h3>
-    <p>
-        <ol>
-            <li>The company has the option to move to Office 365 or refresh the current hardware</li>
-            <li>The company will buy the E3 plan, which includes Exchange, SharePoint and Lync</li>
-            <li> We'll decrease the size of the IT team by 1 resource</li>
-            <li> Assuming 3 annual payments for perpetual licenses</li>
-        </ol>
-    </p>
-    <div>
-        <label>Hide non configurable parameters</label>
-        <input type="checkbox" id="HideNonConfigParams" />
-    </div>
-    <div id="Inputs">
-        <h3>Configurable Factors</h3>
+        </header>
+        <h3>Assumptions</h3>
         <p>
-            <label>Number of Years</label>
-            <input type="text" id="NumberOfYears" />
+            <ol>
+                <li>The company has the option to move to Office 365 or refresh the current hardware</li>
+                <li>The company will buy the E3 plan, which includes Exchange, SharePoint and Lync</li>
+                <li> We'll decrease the size of the IT team by 1 resource</li>
+                <li> Assuming 3 annual payments for perpetual licenses</li>
+            </ol>
         </p>
-        <p>
-            <label>Number of Users</label>
-            <input type="text" id="NumberOfUsers" />
-        </p>
-        <p>
-            <label>Cost of E3 License</label>
-            <input type="text" id="CostE3License" />
-        </p>
-        <p>
-            <label>Number of IT Resources</label>
-            <input type="text" id="NumberOfITResources" />
-        </p>
+        <div>
+            <label>Hide non configurable parameters</label>
+            <input type="checkbox" id="HideNonConfigParams" ng-model="hideNonConfigurableParams"/>
+            <br />
+            <input type="button" id="BtnCalcular" ng-click="Calculus()" value="Calculus" />
+            
+        </div>
+        <div id="Inputs">
+            <h3>Configurable Factors</h3>
+            <p>
+                <label>Number of Years</label>
+                <input type="text" id="NumberOfYears" ng-model="NumberOfYears" />
+            </p>
+            <p>
+                <label>Number of Users</label>
+                <input type="text" id="NumberOfUsers" ng-model="NumberOfUsers"/>
+            </p>
+            <p>
+                <label>Cost of E3 License</label>
+                <input type="text" id="CostE3License" ng-model="CostOfE3License"/>
+            </p>
+            <p>
+                <label>Number of IT Resources</label>
+                <input type="text" id="NumberOfITResources" ng-model="NumberOfITResources"/>
+            </p>
 
-        <h3>Current Costs</h3>
-        <p>
-            <label>Cost per IT Resource</label>
-            <input type="text" id="CostPerITResource"/>
-        </p>
-        <p class="NonConfigurableParameter">
-            <label>Cost per mobile worker</label>
-            <input type="text" id="CostPerMobileWorker" />
-        </p>
-        <p class="NonConfigurableParameter">
-            <label>Cost per knowledge worker</label>
-            <input type="text" id="CostPerKnowledgeWorker" />
-        </p>
+            <h3>Current Costs</h3>
+            <p>
+                <label>Cost per IT Resource</label>
+                <input type="text" id="CostPerITResource" ng-model="CostPerITResource"/>
+            </p>
+            <p class="{hideNonConfigurableParams:NonConfigurableParameter,!hideNonConfigurableParams:NonConfigurableParameterHided}">
+                <label>Cost per mobile worker</label>
+                <input type="text" id="CostPerMobileWorker" ng-model="CostPerMobileWorker"/>
+            </p>
+            <p class="{hideNonConfigurableParams:NonConfigurableParameter,!hideNonConfigurableParams:NonConfigurableParameterHided}">
+                <label>Cost per knowledge worker</label>
+                <input type="text" id="CostPerKnowledgeWorker" ng-model="CostPerKnowledgeWorker"/>
+            </p>
 
-        <h3>Implementation/Migration</h3>
-        <p>
-            <label>Professional Services</label>
-            <input type="text" id="ProfesionalServices" />
-        </p>
-        <p class="NonConfigurableParameter">
-            <label>Training</label>
-            <input type="text" id="Training"/>
-        </p>
+            <h3>Implementation/Migration</h3>
+            <p>
+                <label>Professional Services</label>
+                <input type="text" id="ProfesionalServices" ng-model="ProfesionalServices"/>
+            </p>
+            <p class="{hideNonConfigurableParams:NonConfigurableParameter,!hideNonConfigurableParams:NonConfigurableParameterHided}">
+                <label>Training</label>
+                <input type="text" id="Training"  ng-model="Training"/>
+            </p>
 
-        <h3>Hardware</h3>
-        <p>
-            <label>Cost per server</label>
-            <input type="text" id="CostPerServer" />
-        </p>
-        <table id="ServerCosts">
-            <thead>
-                <tr>
-                    <th align="center"></th>
-                    <th align="center">Unit Price</th>
-                    <th align="center">Total Price</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <td align="left">Total</td>
-                    <td align="center"><input type="text" id="SumOfServers" value="7"/></td>
-                    <td align="right"><input type="text" id="SumCostServers" value="49000"/></td>
-                </tr>
-            </tfoot>
-            <tbody>
-                <tr>
-                    <td align="left">Exchange Servers</td>
-                    <td align="center"><input type="text" id="NumberOfExchangeServers" value="2"/></td>
-                    <td align="right"><input type="text" id="CostOfExchangeServers" value="14000"/></td>
-                </tr>
-                <tr>
-                    <td align="left">SharePoint Servers</td>
-                    <td align="center"><input type="text" id="NumberOfSharePointServers" value="3"/></td>
-                    <td align="right"><input type="text" id="CostOfSharePointServers" value="21000"/></td>
-                </tr>
-                <tr>
-                    <td align="left">Lync Servers</td>
-                    <td align="center"><input type="text" id="NumberOfLyncServers" value="2"/></td>
-                    <td align="right"><input type="text" id="CostOfLyncServers" value="14000"/></td>
-                </tr>
-            </tbody>
-           
-        </table>
-        
-        <h3>Support</h3>
-        <p class="NonConfigurableParameter">
-            <label>Number of resources</label>
-            <input type="text" id="NumberOfSupportResources" />
-        </p>
+            <h3>Hardware</h3>
+            <p>
+                <label>Cost per server</label>
+                <input type="text" id="CostPerServer" ng-model="CostPerServer" />
+            </p>
+            <table id="ServerCosts" >
+                <thead>
+                    <tr>
+                        <th align="center"></th>
+                        <th align="center">Unit Price</th>
+                        <th align="center">Total Price</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td align="left">Total</td>
+                        <td align="center"><input type="text" id="SumOfServers"  ng-model="HardwareTotalServers"/></td>
+                        <td align="right"><input type="text" id="SumCostServers" ng-model="HardwareTotalCost" /></td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr ng-repeat="Item in HardwareList">
+                        <td align="left">{{Item.name}}</td>
+                        <td align="center"><input type="text" id="NumberOfExchangeServers" ng-model="Item.number" /></td>
+                        <td align="right"><input type="text" id="CostOfExchangeServers" value="{{Item.total}}" /></td>
+                    </tr>
+                </tbody>
 
-        <h3>Third Party Software</h3>
-        <table id="ThirdPartySoftware">
-            <tbody>
-                <tr>
-                    <td align="left">Antivirus cost per year</td>
-                    <td align="center"><input type="text" id="Antivirus" /></td>
-                </tr>
-                <tr>
-                    <td align="left">Backup agents per year</td>
-                    <td align="center"><input type="text" id="Backup" /></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td align="left">Total</td>
-                    <td align="center"><input type="text" id="TotalThirdPartySoftware" /></td>
-                </tr>
-            </tfoot>
-        </table>
+            </table>
 
-        <h3>Microsoft Licenses</h3>
-        <table id="MicrosoftLicenses">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Unit Price</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Office Professional Plus</td>
-                    <td><input type="text" id="OfficeLinceCost" value="508.00" /></td>
-                    <td><input type="text" id="OfficeLinceCost" value="76,200.00" /></td>
-                </tr>
-                <tr>
-                    <td>Exchange Standard</td>
-                    <td><input type="text" id="OfficeLinceCost" value="708.00" /></td>
-                    <td><input type="text" id="OfficeLinceCost" value="1,416.00"/></td>
-                </tr>
-                <tr>
-                    <td>SharePoint Standard</td>
-                    <td><input type="text" id="OfficeLinceCost" value="4,926.00" /></td>
-                    <td><input type="text" id="OfficeLinceCost" value="14,778.00" /></td>
-                </tr>
-                <tr>
-                    <td>Lync Standard</td>
-                    <td><input type="text" id="OfficeLinceCost" value="708.00" /></td>
-                    <td><input type="text" id="OfficeLinceCost" value="1,416.00"/></td>
-                </tr>
-                <tr>
-                    <td>CALs</td>
-                    <td><input type="text" id="OfficeLinceCost" value="195.00" /></td>
-                    <td><input type="text" id="OfficeLinceCost" value="29,250.00"/></td> 
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td>Total</td>
-                    <td></td>
-                    <td><input type="text" id="TotalMicrosoftLicenses" value="123060"/>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+            <h3>Support</h3>
+            <p class="{hideNonConfigurableParams:NonConfigurableParameter,!hideNonConfigurableParams:NonConfigurableParameterHided}">
+                <label>Number of resources</label>
+                <input type="text" id="NumberOfSupportResources" ng-model="NumberOfResources"/>
+            </p>
 
-        <h3>Data Center</h3>
-        <table id="DataCenter">
-            <tbody>
-                <tr>
-                    <td>Cost Per Server/Year</td>
-                    <td><input type="text" id="DataCenterCostPerServerPerYear" value="500" /></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td>Total</td>
-                    <td><input type="text" id="TotalDataCenter" value="3500" /></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+            <h3>Third Party Software</h3>
+            <table id="ThirdPartySoftware">
+                <tbody>
+                    <tr ng-repeat="Item in ThirdPartyList">
+                        <td align="left">{{Item.name}}</td>
+                        <td align="center"><input type="text" id="Antivirus" ng-model="Item.cost"/></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td align="left">Total</td>
+                        <td align="center"><input type="text" id="TotalThirdPartySoftware" ng-model="ThirdPartyTotal" /></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h3>Microsoft Licenses</h3>
+            <table id="MicrosoftLicenses">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Item in MicrosoftLiensesList">
+                        <td>{{Item.name}}</td>
+                        <td><input type="text" id="OfficeLinceCost" ng-model="Item.unitPrice" /></td>
+                        <td><input type="text" id="OfficeLinceCost" ng-model="Item.cost" /></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td>
+                            <input type="text" id="TotalMicrosoftLicenses" ng-model="MicrosoftLiensesTotal" />
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <h3>Data Center</h3>
+            <table id="DataCenter">
+                <tbody>
+                    <tr>
+                        <td>Cost Per Server/Year</td>
+                        <td><input type="text" id="DataCenterCostPerServerPerYear" ng-model="DataCenterCostPerServerPerYear" /></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td><input type="text" id="TotalDataCenter" ng-model="DataCenterTotal" /></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     <div id="Output">
         <h2>Comparision Results</h2>
         <table id="ComparisionTable">
@@ -227,71 +207,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>IT Resources</td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                </tr>
-                <tr>
-                    <td>Hardware</td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                </tr>
-                <tr>
-                    <td>DataCenter</td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                </tr>
-                <tr>
-                    <td>Perpetual Licienses</td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                </tr>
-                <tr>
-                    <td>Office 365 Subscription</td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                </tr>
-                <tr>
-                    <td>Third Party Software</td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
-                    <td><input type="text" /> </td>
+                <tr ng-repeat="Item in ComparisonResultList">
+                    <td>{{Item.name}}</td>
+                    <td><input type="text" ng-model="Item.years[0].OnPremise"/> </td>
+                    <td><input type="text" ng-model="Item.years[0].Office365"/> </td>
+                    <td><input type="text" ng-model="Item.years[1].OnPremise"/> </td>
+                    <td><input type="text" ng-model="Item.years[1].Office365"/> </td>
+                    <td><input type="text" ng-model="Item.years[2].OnPremise"/> </td>
+                    <td><input type="text" ng-model="Item.years[2].Office365"/> </td>
+                    <td><input type="text" ng-model="Item.years[3].OnPremise"/> </td>
+                    <td><input type="text" ng-model="Item.years[3].Office365"/> </td>
                 </tr>
             </tbody>
             <tfoot>
@@ -309,6 +234,5 @@
             </tfoot>
         </table>
     </div>
-    <script src="/Scripts/angular.js"></script>
 </body>
 </html>
